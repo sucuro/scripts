@@ -395,7 +395,7 @@ const updateRemainingInSale = async () => {
     const sucgSupplyLeftElement = document.getElementById(sucgSupplyLeftElementId);
     sucgSupplyLeftElement.innerText = remainingHumanReadable;
 
-    console.log("remaining tokens: ", remainingHumanReadable)
+    console.log("remaining tokens:  ", remainingHumanReadable)
 }
 
 window.onload = function() {
