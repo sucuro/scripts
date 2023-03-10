@@ -249,6 +249,7 @@ const successMainElement = document.getElementById('successMain')
 const completeHeadingElement = document.getElementById('completeHeading')
 const browserNotSupportedElement = document.getElementById('browserNotSupported')
 const sucgStatusBarElement = document.getElementById('sucgStatusBar')
+const sucgSupplyLeftElement = document.getElementById('sucgSupplyLeft')
 
 const usdcBalanceElement = document.getElementById('usdcBalance')
 
@@ -376,8 +377,28 @@ const toggleElementVisibility = (element) => {
 const reportProblemButtonElement = document.getElementById('reportProblemButton')
 const reportProblemFormElement = document.getElementById('reportProblemForm')
 
+const updateRemainingInSale = async () => {
+    // Replace the values below with your Alchemy API key and the contract address
+    const apiKey = '9j5elMdVeZiDjpGRQoBtgZVBwcl2hMeF';
+  
+    // Create a new instance of the ethers.js library with Alchemy as the provider
+    const provider = new ethers.providers.JsonRpcProvider(`https://eth-mainnet.alchemyapi.io/v2/${apiKey}`);
+
+    // Create a new instance of the contract object using the ABI and address of the contract
+    const contract = new ethers.Contract(swapperAddress, swapperABI, provider);
+
+    // Call the getRemainingInPrivateSale function on the contract and convert the result to a human-readable number
+    const remaining = await contract.getRemainingInPrivateSale();
+    const remainingHumanReadable = ethers.utils.formatEther(remaining);
+
+    // Update the innerText of the element with the human-readable number
+    const sucgSupplyLeftElement = document.getElementById(sucgSupplyLeftElementId);
+    sucgSupplyLeftElement.innerText = remainingHumanReadable;
+}
+
 window.onload = function() {
   browserDetect()
+  updateRemainingInSale()
   usdcElement.value = '5,000'
   usdcElement.min = 5000
   sucgElement.value = '5,000'
