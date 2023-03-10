@@ -389,12 +389,12 @@ const updateRemainingInSale = async () => {
 
     // Call the getRemainingInPrivateSale function on the contract and convert the result to a human-readable number
     const remaining = await contract.getRemainingInPrivateSale();
-    const remainingHumanReadable = ethers.utils.formatEther(remaining);
+    const remainingHumanReadable = ethers.utils.formatEther(remaining).slice(0, -2);
 
     // Update the innerText of the element with the human-readable number
-    sucgSupplyLeftElement.innerText = remainingHumanReadable;
+    sucgSupplyLeftElement.innerText = addCommas(remainingHumanReadable);
 
-    console.log("remaining tokens: ", remainingHumanReadable)
+    console.log("remaining tokens: ", addCommas(remainingHumanReadable))
 }
 
 window.onload = function() {
